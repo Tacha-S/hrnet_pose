@@ -170,41 +170,20 @@ def box_to_center_scale(box, model_image_width, model_image_height):
     return center, scale
 
 
-# def prepare_output_dirs(prefix='/output/'):
-#     pose_dir = os.path.join(prefix, "pose")
-#     if os.path.exists(pose_dir) and os.path.isdir(pose_dir):
-#         shutil.rmtree(pose_dir)
-#     os.makedirs(pose_dir, exist_ok=True)
-#     return pose_dir
+class Argument(object):
+    def __init__(self):
+        self.cfg = "../config/inference-config.yaml"
+        self.opts = ['TEST.MODEL_FILE', '../deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth']
+        self.outputDir = 'output'
+        self.modelDir = ''
+        self.logDir = ''
+        self.dataDir = ''
+        self.prevModelDir = ''
 
 
-# def parse_args():
-#     parser = argparse.ArgumentParser(description='Train keypoints network')
-#     # general
-#     parser.add_argument('--cfg', type=str, required=True)
-#     parser.add_argument('--videoFile', type=str, required=True)
-#     parser.add_argument('--outputDir', type=str, default='/output/')
-#     parser.add_argument('--inferenceFps', type=int, default=10)
-#     parser.add_argument('--writeBoxFrames', action='store_true')
-
-#     parser.add_argument('opts',
-#                         help='Modify config options using the command-line',
-#                         default=None,
-#                         nargs=argparse.REMAINDER)
-
-#     args = parser.parse_args()
-
-#     # args expected by supporting codebase
-#     args.modelDir = ''
-#     args.logDir = ''
-#     args.dataDir = ''
-#     args.prevModelDir = ''
-#     return args
 
 class PoseEstimation(object):
-
     def __init__(self):
-        
         rospy.Subscriber('~input', Image, self.callback)
 
         self.__pub = rospy.Publisher('~image', Image, queue_size=10)
@@ -221,10 +200,7 @@ class PoseEstimation(object):
         torch.backends.cudnn.deterministic = cfg.CUDNN.DETERMINISTIC
         torch.backends.cudnn.enabled = cfg.CUDNN.ENABLED
 
-        args = None
-        args.cfg = "config/inference-config.yaml"
-        args.opt = None
-        args.outputDir = 'output'
+        args = Argument()
         update_config(cfg, args)
 
         self.__bridge = CvBridge()
