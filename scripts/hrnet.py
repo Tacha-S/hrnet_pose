@@ -184,10 +184,6 @@ class Argument(object):
 
 class PoseEstimation(object):
     def __init__(self):
-        rospy.Subscriber('~input', Image, self.callback)
-
-        self.__pub = rospy.Publisher('~image', Image, queue_size=10)
-
         # transformation
         self.pose_transform = transforms.Compose([
             transforms.ToTensor(),
@@ -220,6 +216,10 @@ class PoseEstimation(object):
 
         self.__pose_model.to(CTX)
         self.__pose_model.eval()
+
+        rospy.Subscriber('~input', Image, self.callback)
+
+        self.__pub = rospy.Publisher('~image', Image, queue_size=10)
 
     def callback(self, msg):
         total_now = time.time()
