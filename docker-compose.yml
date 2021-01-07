@@ -14,13 +14,16 @@ services:
     image: hrnet
     build: .
     container_name: hrnet
-    command: bash -c "source /ros/src/devel/setup.bash; roslaunch hrnet.launch"
+    runtime: nvidia
+    # command: bash -c "source /ros/src/devel/setup.bash; roslaunch hrnet.launch"
     tty: true
     volumes:
       - ./deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth:/ros/src/hrnet_pose/deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth
     environment:
       - ROS_MASTER_URI=http://192.168.200.1:11311
       - ROS_IP=192.168.200.2
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
     networks:
       ros_net:
         ipv4_address: 192.168.200.2
