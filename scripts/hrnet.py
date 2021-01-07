@@ -22,7 +22,7 @@ import cv2
 import numpy as np
 
 import sys
-sys.path.append("../deep-high-resolution-net/lib")
+sys.path.append("/ros/src/hrnet_pose/deep-high-resolution-net/lib")
 import time
 
 # import _init_paths
@@ -172,8 +172,10 @@ def box_to_center_scale(box, model_image_width, model_image_height):
 
 class Argument(object):
     def __init__(self):
-        self.cfg = "../config/inference-config.yaml"
-        self.opts = ['TEST.MODEL_FILE', '../deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth']
+        self.cfg = "/ros/src/hrnet_pose/config/inference-config.yaml"
+        self.opts = [
+            'TEST.MODEL_FILE',
+            '/ros/src/hrnet_pose/deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth']
         self.outputDir = 'output'
         self.modelDir = ''
         self.logDir = ''
