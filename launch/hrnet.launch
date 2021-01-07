@@ -2,7 +2,7 @@
   <arg name="color_image" default="/realsense_front/color/image_rect_color" />
 
   <node name="hrnet_pose" pkg="hrnet_pose" type="hrnet.py" respawn="true" output="screen">
-    <remap from="input" to="$(arg color_image)" />
+    <remap from="~input" to="$(arg color_image)" />
   </node>
 
 </launch>
