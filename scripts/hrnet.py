@@ -9,7 +9,7 @@ import csv
 import os
 import shutil
 
-from PIL import Image
+from PIL import Image as _Image
 import torch
 import torch.nn.parallel
 import torch.backends.cudnn as cudnn
@@ -76,7 +76,7 @@ COCO_INSTANCE_CATEGORY_NAMES = [
 
 
 def get_person_detection_boxes(model, img, threshold=0.5):
-    pil_image = Image.fromarray(img)  # Load the image
+    pil_image = _Image.fromarray(img)  # Load the image
     transform = transforms.Compose([transforms.ToTensor()])  # Defing PyTorch Transform
     transformed_img = transform(pil_image)  # Apply the transform to the image
     pred = model([transformed_img.to(CTX)])  # Pass the image to the model
