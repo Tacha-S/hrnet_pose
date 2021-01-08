@@ -6,7 +6,7 @@ services:
     build: .
     container_name: hrnet
     runtime: nvidia
-    # command: bash -c "source /ros/src/devel/setup.bash; roslaunch hrnet.launch"
+    # command: bash -c "source /opt/ros/melodic/setup.bash; source /ros/devel/setup.bash; source /ros/install/setup.bash; roslaunch hrnet_pose hrnet.launch"
     tty: true
     volumes:
       - ./deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth:/ros/src/hrnet_pose/deep-high-resolution-net/models/pytorch/pose_coco/pose_hrnet_w32_256x192.pth

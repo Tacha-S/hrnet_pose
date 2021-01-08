@@ -16,6 +16,7 @@
 #     apt-get install libcudnn8 libcudnn8-dev && \
 #     rm nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 
+# RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
 # ENV PATH=/usr/local/cuda/bin:${PATH}
 # ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 
@@ -43,4 +44,6 @@ RUN mkdir ros &&\
     cd cocoapi/PythonAPI && \
     python3 setup.py install --user && \
     cd ../../ros && \
-    /bin/bash -c "source /opt/ros/melodic/setup.bash; catkin build"
+    /bin/bash -c "source /opt/ros/melodic/setup.bash;catkin build" && \
+    echo "source /ros/devel/setup.bash" >> /root/.bashrc && \
+    echo "source /ros/install/setup.bash --extend" >> /root/.bashrc
